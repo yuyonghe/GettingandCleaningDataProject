@@ -38,18 +38,18 @@ run_analysis <- function() {
     ## 3. Uses descriptive activity names to name the activities in the data set
     v_mergedData<-merge(v_mean_sd, v_activity_labels, by = "activity_id")
     
+    ## 4. Appropriately labels the data set with descriptive variable names
     ## Generate columns' names
     v_colnames <- gsub("\\(\\)", "",t(v_feature_no[2]))
     v_colnames <- gsub("-", "_",v_colnames)
     v_colnames <- cbind("activity_id", v_colnames, "subject_no","activity_name")
     
-    ## 4. Appropriately labels the data set with descriptive variable names
     colnames(v_mergedData) <- v_colnames
-    
+
+    ## 5. Creates a data set with the average of each variable 
     ## Removes activity_name for preparing to calculate mean of each numeric variable
     v_mergedData$activity_name <-NULL
     
-    ## 5. Creates a data set with the average of each variable 
     ## for each activity and each subject
     myresult <- aggregate(v_mergedData,  by=list(v_mergedData$activity_id, 
                                                  v_mergedData$subject_no), 
